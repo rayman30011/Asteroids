@@ -13,7 +13,6 @@ ASpaceship::ASpaceship()
 
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("StaticMesh");
 	Muzzle = CreateDefaultSubobject<USceneComponent>("Muzzle");
-	ProjectileWeapon = CreateDefaultSubobject<UProjectileWeaponComponent>("ProjectileWeapon");
 	
 	SetRootComponent(StaticMesh);
 	Muzzle->SetupAttachment(RootComponent);
@@ -23,9 +22,22 @@ void ASpaceship::BeginPlay()
 {
 	Super::BeginPlay();
 
-	check(ProjectileWeapon);
+	for (auto Class : WeaponClasses)
+	{
+		const auto Weapon = NewObject<UBaseWeapon>(this, Class);
+		if (!Weapon)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Can not create weapon %s"), *Class->GetName());
+			continue;
+		}
 
-	CurrentWeapon = ProjectileWeapon;
+		AvailableWeapons.Add(Weapon);
+	}
+
+	if (AvailableWeapons.Num() > 0)
+	{
+		CurrentWeapon = AvailableWeapons[0];
+	}
 }
 
 void ASpaceship::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -42,7 +54,7 @@ void ASpaceship::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 void ASpaceship::StartFire()
 {
 	if (!CurrentWeapon) return;
-	CurrentWeapon->StartFire();
+	CurrentWeapon->StartFire(this);
 }
 
 void ASpaceship::EndFire()

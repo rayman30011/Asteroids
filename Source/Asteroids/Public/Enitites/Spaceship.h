@@ -10,6 +10,8 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLivesChangedSignature, int32, Lives);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeadSignature);
 
+class UBaseWeapon;
+
 UCLASS()
 class ASTEROIDS_API ASpaceship : public APawn
 {
@@ -25,10 +27,7 @@ protected:
 	UStaticMeshComponent* StaticMesh;
 
 	UPROPERTY(EditDefaultsOnly, Category=Components)
-	USceneComponent* Muzzle;
-
-	UPROPERTY(EditDefaultsOnly, Category=Components)
-	class UProjectileWeaponComponent* ProjectileWeapon;
+	USceneComponent* Muzzle;;
 	
 	UPROPERTY(EditDefaultsOnly, Category=Components)
 	float Impulse;
@@ -38,6 +37,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=Components)
 	int32 Lives;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=Components)
+	TArray<TSubclassOf<UBaseWeapon>> WeaponClasses;
 	
 	virtual void BeginPlay() override;
 
@@ -60,5 +62,8 @@ private:
 	void OnTakeAnyDamage();
 
 	UPROPERTY()
-	class UBaseWeaponComponent* CurrentWeapon = nullptr;
+	UBaseWeapon* CurrentWeapon = nullptr;
+
+	UPROPERTY()
+	TArray<UBaseWeapon*> AvailableWeapons;
 };

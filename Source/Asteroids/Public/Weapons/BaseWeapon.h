@@ -9,13 +9,13 @@
 /**
  * Базовый класс для оружия
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class ASTEROIDS_API UBaseWeapon : public UObject
 {
 	GENERATED_BODY()
 	
 public:
-	virtual void StartFire(AActor* Instigator, UWorld* World);
+	virtual void StartFire(AActor* Instigator);
 	
 	/** Для ежесекундной логики */
 	virtual void Tick();

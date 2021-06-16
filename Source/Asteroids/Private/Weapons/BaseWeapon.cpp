@@ -3,7 +3,7 @@
 
 #include "Weapons/BaseWeapon.h"
 
-void UBaseWeapon::StartFire(AActor* Instigator, UWorld* World)
+void UBaseWeapon::StartFire(AActor* Instigator)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Fire"));
 }

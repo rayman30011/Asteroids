@@ -7,9 +7,9 @@
 #include "LaserWeapon.generated.h"
 
 /**
- * 
+ * Лазерное оружие. Может поражать несколько объектов
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class ASTEROIDS_API ULaserWeapon : public UBaseWeapon
 {
 	GENERATED_BODY()

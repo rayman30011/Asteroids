@@ -7,9 +7,9 @@
 #include "BulletWeapon.generated.h"
 
 /**
- * 
+ * Оружие стреляющее пулями
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class ASTEROIDS_API UBulletWeapon : public UBaseWeapon
 {
 	GENERATED_BODY()
@@ -19,7 +19,7 @@ protected:
 	TSubclassOf<AActor> ProjectileClass;
 	
 public:
-	virtual void StartFire(AActor* Instigator, UWorld* World) override;
+	virtual void StartFire(AActor* Instigator) override;
 	virtual void EndFire() override;
 
 private:

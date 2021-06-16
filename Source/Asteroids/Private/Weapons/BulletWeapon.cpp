@@ -4,22 +4,23 @@
 #include "Enitites/Spaceship.h"
 
 
-void UBulletWeapon::StartFire(AActor* Instigator, UWorld* World)
+void UBulletWeapon::StartFire(AActor* Instigator)
 {
-	Super::StartFire(Instigator, World);
+	Super::StartFire(Instigator);
 	
 	UE_LOG(LogTemp, Warning, TEXT("Fire buller"));
-	if (!World || !Instigator) return;
+	if (!Instigator || !Instigator->GetWorld()) return;
+
 	
-	// const auto Spaceship = Cast<ASpaceship>(Instigator);
-	// if (Spaceship)
-	// {
-	// 	SpawnProjectile(Spaceship->GetMuzzleWorldLocation(), Instigator->GetActorRotation(), World);
-	// }
-	// else
-	// {
-	// 	SpawnProjectile(Instigator->GetActorLocation(), Instigator->GetActorRotation(), World);
-	// }
+	const auto Spaceship = Cast<ASpaceship>(Instigator);
+	if (Spaceship)
+	{
+		SpawnProjectile(Spaceship->GetMuzzleWorldLocation(), Instigator->GetActorRotation(), Instigator->GetWorld());
+	}
+	else
+	{
+		SpawnProjectile(Instigator->GetActorLocation(), Instigator->GetActorRotation(), Instigator->GetWorld());
+	}
 }
 
 void UBulletWeapon::EndFire()

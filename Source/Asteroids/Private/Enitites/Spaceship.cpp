@@ -3,6 +3,7 @@
 
 #include "Enitites/Spaceship.h"
 
+#include "Asteroids/AsteroidsGameModeBase.h"
 #include "Weapons/BaseWeapon.h"
 
 ASpaceship::ASpaceship()
@@ -77,6 +78,11 @@ void ASpaceship::AddForce(float Value)
 void ASpaceship::OnTakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
 {
 	OnDead.Broadcast();
+	const auto GameMode = GetWorld()->GetAuthGameMode<AAsteroidsGameModeBase>();
+	if (GameMode)
+	{
+		GameMode->PlayerDestroy(GetController());
+	}
 	Destroy();
 }
 

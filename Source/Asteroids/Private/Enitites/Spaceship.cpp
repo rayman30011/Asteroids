@@ -4,8 +4,6 @@
 #include "Enitites/Spaceship.h"
 
 #include "Weapons/BaseWeapon.h"
-#include "Weapons/BulletWeapon.h"
-#include "Weapons/ProjectileWeaponComponent.h"
 
 ASpaceship::ASpaceship()
 {

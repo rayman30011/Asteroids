@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
 
 #include "Asteroid.generated.h"
@@ -20,7 +22,13 @@ protected:
 	UStaticMeshComponent* Mesh;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TSubclassOf<AAsteroid> ChildClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class UProjectileMovementComponent* ProjectileMovementComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	USphereComponent* SphereCollision;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float MinForce = 80.f;
@@ -33,4 +41,7 @@ protected:
 private:
 	UFUNCTION()
 	void OnTakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+
+	UFUNCTION()
+	void OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor);
 };

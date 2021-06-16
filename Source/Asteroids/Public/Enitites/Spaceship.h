@@ -44,7 +44,10 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
+	UPROPERTY(BlueprintAssignable)
 	FOnLivesChangedSignature OnLivesChanged;
+	
+	UPROPERTY(BlueprintAssignable)
 	FOnDeadSignature OnDead;
 	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -59,7 +62,8 @@ private:
 	void Turn(float Value);
 	void AddForce(float Value);
 
-	void OnTakeAnyDamage();
+	UFUNCTION()
+	void OnTakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
 	UPROPERTY()
 	UBaseWeapon* CurrentWeapon = nullptr;

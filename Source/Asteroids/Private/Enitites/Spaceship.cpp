@@ -36,6 +36,8 @@ void ASpaceship::BeginPlay()
 	{
 		CurrentWeapon = AvailableWeapons[0];
 	}
+
+	OnTakeAnyDamage.AddDynamic(this, &ASpaceship::OnTakeDamage);
 }
 
 void ASpaceship::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -72,13 +74,9 @@ void ASpaceship::AddForce(float Value)
 	StaticMesh->AddImpulse(GetActorForwardVector() * Impulse);
 }
 
-void ASpaceship::OnTakeAnyDamage()
+void ASpaceship::OnTakeDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
 {
-	if (IsDead()) return;
-
-	OnLivesChanged.Broadcast(--Lives);
-	
-	if (IsDead())
-		OnDead.Broadcast();
+	OnDead.Broadcast();
+	Destroy();
 }
 

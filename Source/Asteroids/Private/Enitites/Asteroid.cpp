@@ -32,28 +32,30 @@ void AAsteroid::OnTakeDamage(AActor* DamagedActor, float Damage, const UDamageTy
 	AController* InstigatedBy, AActor* DamageCauser)
 {
 	const auto PlayerController = Cast<AAsteroidsPlayerController>(InstigatedBy);
+	Destroy();
 	
 	if (ChildClass.Get() && PlayerController)
 	{
-		const auto Location = GetActorLocation();
-		const auto Rotation = GetActorRotation();
-		auto FirstRotation = Rotation;
-		FirstRotation.Add(0.f, 0.f, 45.f);
-		const auto FirstLocation = Location + GetActorForwardVector() * 50.f + GetActorRightVector() * -50.f;
-		GetWorld()->SpawnActor(ChildClass, &FirstLocation, &FirstRotation);
+		const auto Radius = SphereCollision->GetScaledSphereRadius();
 		
-		auto SecondRotation = Rotation;
-		SecondRotation.Add(0.f, 0.f, 45.f);
-		const auto SecondLocation = Location + GetActorForwardVector() * 50.f + GetActorRightVector() * 50.f;
+		const auto Location = GetActorLocation();
+		const auto FirstRotation = GetActorRotation() + FRotator(0, -30, 0);
+		const auto FirstLocation = Location + GetActorRightVector() * -25.f;
+		GetWorld()->SpawnActor(ChildClass, &FirstLocation, &FirstRotation);
+
+		const auto SecondRotation = GetActorRotation() + FRotator(0, 30, 0);
+		const auto SecondLocation = Location + GetActorRightVector() * 25.f;
 		GetWorld()->SpawnActor(ChildClass, &SecondLocation, &SecondRotation);
 	}
 
-	Destroy();
 }
 
 
 void AAsteroid::OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
+	const auto Spaceship = Cast<ASpaceship>(OtherActor);
+	if (!Spaceship) return;
+	
 	UE_LOG(LogTemp, Display, TEXT("Overlap"));
 	const FDamageEvent DamageEvent;
 	OtherActor->TakeDamage(1.f, DamageEvent, nullptr, nullptr);

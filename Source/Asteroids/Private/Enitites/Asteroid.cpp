@@ -6,6 +6,7 @@
 #include "Enitites/Spaceship.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Player/AsteroidsPlayerController.h"
+#include "Player/AsteroidsPlayerState.h"
 
 AAsteroid::AAsteroid()
 {
@@ -33,6 +34,11 @@ void AAsteroid::OnTakeDamage(AActor* DamagedActor, float Damage, const UDamageTy
 {
 	const auto PlayerController = Cast<AAsteroidsPlayerController>(InstigatedBy);
 	Destroy();
+	const auto PlayerState = PlayerController->GetPlayerState<AAsteroidsPlayerState>();
+	if (PlayerState)
+	{
+		PlayerState->AddScores(ScoresForAdd);
+	}
 	
 	if (ChildClass.Get() && PlayerController)
 	{

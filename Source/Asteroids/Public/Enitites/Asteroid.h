@@ -35,6 +35,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float MaxForce = 150.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	int32 ScoresForAdd = 100;
 	
 	virtual void BeginPlay() override;
 

@@ -17,10 +17,4 @@ class ASTEROIDS_API AAsteroidsPlayerController : public APlayerController
 protected:
 	virtual void BeginPlay() override;
 	void OnPawnChanged(APawn* NewPawn);
-
-private:
-	void SubscribeOnSpaceshipDead(class ASpaceship* Spaceship);
-	UFUNCTION()
-	void OnSpaceshipDead();
-	void RestartPlayer();
 };

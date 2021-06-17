@@ -5,6 +5,7 @@
 
 #include "Enitites/Spaceship.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Player/AsteroidsPlayerController.h"
 
 AAsteroid::AAsteroid()
 {
@@ -30,12 +31,23 @@ void AAsteroid::BeginPlay()
 void AAsteroid::OnTakeDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
 	AController* InstigatedBy, AActor* DamageCauser)
 {
-	if (ChildClass.Get())
+	const auto PlayerController = Cast<AAsteroidsPlayerController>(InstigatedBy);
+	
+	if (ChildClass.Get() && PlayerController)
 	{
 		const auto Location = GetActorLocation();
-		GetWorld()->SpawnActor(ChildClass, &Location);
+		const auto Rotation = GetActorRotation();
+		auto FirstRotation = Rotation;
+		FirstRotation.Add(0.f, 0.f, 45.f);
+		const auto FirstLocation = Location + GetActorForwardVector() * 50.f + GetActorRightVector() * -50.f;
+		GetWorld()->SpawnActor(ChildClass, &FirstLocation, &FirstRotation);
+		
+		auto SecondRotation = Rotation;
+		SecondRotation.Add(0.f, 0.f, 45.f);
+		const auto SecondLocation = Location + GetActorForwardVector() * 50.f + GetActorRightVector() * 50.f;
+		GetWorld()->SpawnActor(ChildClass, &SecondLocation, &SecondRotation);
 	}
-	
+
 	Destroy();
 }
 

@@ -14,18 +14,3 @@ void AAsteroidsPlayerController::OnPawnChanged(APawn* NewPawn)
 {
 	
 }
-
-void AAsteroidsPlayerController::SubscribeOnSpaceshipDead(ASpaceship* Spaceship)
-{
-	
-}
-
-void AAsteroidsPlayerController::OnSpaceshipDead()
-{
-	
-}
-
-void AAsteroidsPlayerController::RestartPlayer()
-{
-	
-}

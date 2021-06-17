@@ -11,23 +11,16 @@ void UBulletWeapon::StartFire(AActor* Instigator)
 	UE_LOG(LogTemp, Warning, TEXT("Fire buller"));
 	if (!Instigator || !Instigator->GetWorld()) return;
 
-	
 	const auto Spaceship = Cast<ASpaceship>(Instigator);
-	if (Spaceship)
+	const auto Location = Spaceship ? Spaceship->GetMuzzleWorldLocation() : Instigator->GetActorLocation();
+	const auto Rotation = Instigator->GetActorRotation();
+	const auto Projectile = Instigator->GetWorld()->SpawnActor(ProjectileClass, &Location, &Rotation);
+	if (Projectile)
 	{
-		SpawnProjectile(Spaceship->GetMuzzleWorldLocation(), Instigator->GetActorRotation(), Instigator->GetWorld());
-	}
-	else
-	{
-		SpawnProjectile(Instigator->GetActorLocation(), Instigator->GetActorRotation(), Instigator->GetWorld());
+		Projectile->SetOwner(Spaceship);
 	}
 }
 
 void UBulletWeapon::EndFire()
 {
-}
-
-void UBulletWeapon::SpawnProjectile(const FVector& SpawnLocation, const FRotator& SpawnRotation, UWorld* World) const
-{
-	World->SpawnActor(ProjectileClass, &SpawnLocation, &SpawnRotation);
 }

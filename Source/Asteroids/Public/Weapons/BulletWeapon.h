@@ -21,7 +21,4 @@ protected:
 public:
 	virtual void StartFire(AActor* Instigator) override;
 	virtual void EndFire() override;
-
-private:
-	void SpawnProjectile(const FVector& SpawnLocation, const FRotator& SpawnRotation, UWorld* World) const;
 };

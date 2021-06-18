@@ -52,6 +52,14 @@ void ASpaceship::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &ASpaceship::EndFire);
 }
 
+void ASpaceship::ChangeWeapon(int32 Index)
+{
+	if (Index >= 0 && Index < AvailableWeapons.Num())
+	{
+		CurrentWeapon = AvailableWeapons[Index];
+	}
+}
+
 void ASpaceship::StartFire()
 {
 	if (!CurrentWeapon) return;

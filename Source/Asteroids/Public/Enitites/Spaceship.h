@@ -52,6 +52,9 @@ public:
 	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable)
+	void ChangeWeapon(int32 Index);
+	
 	bool IsDead() const { return Lives <= 0; }
 	int32 GetLives() const { return Lives; }
 

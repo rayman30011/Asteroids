@@ -3,6 +3,18 @@
 
 #include "Player/AsteroidsPlayerState.h"
 
+DEFINE_LOG_CATEGORY_STATIC(LogAsteroidsPlayerState, All, All);
+
+void AAsteroidsPlayerState::DecreaseHealth()
+{
+	if (Health > 0)
+	{
+		--Health;
+		Health = FMath::Clamp(Health, 0, 3);
+		UE_LOG(LogAsteroidsPlayerState, Display, TEXT("Heath %d"), Health);
+	}
+}
+
 void AAsteroidsPlayerState::AddScores(int32 ScoresForAdd)
 {
 	Scores += ScoresForAdd;

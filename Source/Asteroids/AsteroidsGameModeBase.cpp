@@ -3,6 +3,8 @@
 
 #include "AsteroidsGameModeBase.h"
 
+#include "Player/AsteroidsPlayerState.h"
+
 DEFINE_LOG_CATEGORY_STATIC(LogAsteroidsGameMode, All, All)
 
 void AAsteroidsGameModeBase::PlayerDestroy(AController* PlayerController)
@@ -10,10 +12,41 @@ void AAsteroidsGameModeBase::PlayerDestroy(AController* PlayerController)
 	UE_LOG(LogAsteroidsGameMode, Display, TEXT("Player Destroy"));
 	if (!PlayerController) return;
 
-	FTimerHandle Timer;
-	GetWorld()->GetTimerManager().SetTimer(Timer, [PlayerController, this]()
+	const auto PlayerState = PlayerController->GetPlayerState<AAsteroidsPlayerState>();
+	check(PlayerState);
+	
+	PlayerState->DecreaseHealth();
+	
+	if (PlayerState->IsDead())
 	{
-		UE_LOG(LogAsteroidsGameMode, Display, TEXT("Player Reset"));
-		RestartPlayer(PlayerController);
-	}, 2.f, false);
+		GameOver();
+	}
+	else
+	{
+		FTimerHandle Timer;
+		GetWorld()->GetTimerManager().SetTimer(Timer, [PlayerController, this]()
+		{
+			UE_LOG(LogAsteroidsGameMode, Display, TEXT("Player Reset"));
+			RestartPlayer(PlayerController);
+		}, 2.f, false);
+	}
+}
+
+void AAsteroidsGameModeBase::StartPlay()
+{
+	Super::StartPlay();
+	OnGameStateChanged.Broadcast(EGameState::InPlay);
+}
+
+void AAsteroidsGameModeBase::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
+void AAsteroidsGameModeBase::GameOver()
+{
+	OnGameOver.Broadcast(nullptr);
+	OnGameStateChanged.Broadcast(EGameState::GameOver);
+	UE_LOG(LogAsteroidsGameMode, Display, TEXT("GAME OVER"));
 }

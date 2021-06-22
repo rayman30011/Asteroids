@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "Asteroids/AsteroidsGameModeBase.h"
 #include "GameFramework/PlayerController.h"
 #include "AsteroidsPlayerController.generated.h"
 
@@ -16,5 +18,8 @@ class ASTEROIDS_API AAsteroidsPlayerController : public APlayerController
 
 protected:
 	virtual void BeginPlay() override;
-	void OnPawnChanged(APawn* NewPawn);
+
+private:
+	UFUNCTION()
+	void OnGameStateChanged(EGameState GameState);
 };

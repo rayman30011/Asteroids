@@ -8,9 +8,26 @@
 
 void AAsteroidsPlayerController::BeginPlay()
 {
+	Super::BeginPlay();
+	
+	const auto GameMode = GetWorld()->GetAuthGameMode<AAsteroidsGameModeBase>();
+	if (GameMode)
+	{
+		GameMode->OnGameStateChanged.AddDynamic(this, &AAsteroidsPlayerController::OnGameStateChanged);
+	}
 }
 
-void AAsteroidsPlayerController::OnPawnChanged(APawn* NewPawn)
+void AAsteroidsPlayerController::OnGameStateChanged(EGameState GameState)
 {
-	
+	if (GameState == EGameState::InPlay)
+	{
+		SetInputMode(FInputModeGameOnly{});
+		SetShowMouseCursor(false);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("PlayerContoller UI Only"));
+		SetShowMouseCursor(true);
+		SetInputMode(FInputModeUIOnly{});
+	}
 }

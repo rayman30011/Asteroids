@@ -8,6 +8,8 @@
 #include "GameFramework/PlayerController.h"
 #include "AsteroidsPlayerController.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLivesChangedSignature, int32, Lives);
+
 /**
  * 
  */
@@ -15,7 +17,7 @@ UCLASS()
 class ASTEROIDS_API AAsteroidsPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-
+	
 protected:
 	virtual void BeginPlay() override;
 

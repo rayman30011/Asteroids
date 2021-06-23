@@ -7,6 +7,7 @@
 #include "AsteroidsPlayerState.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FScoreChangedSigrature, int32, Score);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FLivesChangedSigrature, int32, Lives);
 
 /**
  * 
@@ -20,6 +21,9 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FScoreChangedSigrature OnScoreChanged;
 
+	UPROPERTY(BlueprintAssignable)
+	FLivesChangedSigrature OnLivesChanged;
+	
 	int32 GetHealth() const { return Health; }
 	bool IsDead() const { return Health <= 0; }
 	void DecreaseHealth();

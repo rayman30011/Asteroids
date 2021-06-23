@@ -11,6 +11,7 @@ void AAsteroidsPlayerState::DecreaseHealth()
 	{
 		--Health;
 		Health = FMath::Clamp(Health, 0, 3);
+		OnLivesChanged.Broadcast(Health);
 		UE_LOG(LogAsteroidsPlayerState, Display, TEXT("Heath %d"), Health);
 	}
 }

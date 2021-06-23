@@ -7,7 +7,6 @@
 
 #include "Spaceship.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLivesChangedSignature, int32, Lives);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeadSignature);
 
 class UBaseWeapon;
@@ -36,9 +35,6 @@ protected:
 	float RotationSpeed;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=Components)
-	int32 Lives;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category=Components)
 	TArray<TSubclassOf<UBaseWeapon>> WeaponClasses;
 	
 	virtual void BeginPlay() override;
@@ -54,9 +50,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeWeapon(int32 Index);
-	
-	bool IsDead() const { return Lives <= 0; }
-	int32 GetLives() const { return Lives; }
 
 private:
 	void StartFire();

@@ -41,9 +41,6 @@ protected:
 
 public:
 	UPROPERTY(BlueprintAssignable)
-	FOnLivesChangedSignature OnLivesChanged;
-	
-	UPROPERTY(BlueprintAssignable)
 	FOnDeadSignature OnDead;
 	
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

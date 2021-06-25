@@ -22,3 +22,9 @@ void AAsteroidsPlayerState::AddScores(int32 ScoresForAdd)
 	UE_LOG(LogTemp, Display, TEXT("New Score %d"), Scores);
 	OnScoreChanged.Broadcast(Scores);
 }
+
+void AAsteroidsPlayerState::BeginPlay()
+{
+	Super::BeginPlay();
+	OnLivesChanged.Broadcast(Health);
+}

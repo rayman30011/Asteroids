@@ -23,17 +23,21 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FLivesChangedSigrature OnLivesChanged;
-	
+
+	UFUNCTION(BlueprintCallable)
 	int32 GetHealth() const { return Health; }
+	
 	bool IsDead() const { return Health <= 0; }
 	void DecreaseHealth();
 
 	void AddScores(int32 ScoresForAdd);
-
+	
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	int32 Scores = 0;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	int32 Health = 3;
+	
+	virtual void BeginPlay() override;
 };

@@ -41,7 +41,6 @@ void AAsteroidsGameModeBase::StartPlay()
 void AAsteroidsGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AAsteroidsGameModeBase::GameOver()

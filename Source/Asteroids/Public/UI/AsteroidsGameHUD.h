@@ -18,10 +18,16 @@ class ASTEROIDS_API AAsteroidsGameHUD : public AHUD
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TSubclassOf<UUserWidget> InMenuWidgetClass;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TSubclassOf<UUserWidget> InPlayWidgetClass;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	TSubclassOf<UUserWidget> GameOverWidgetClass;;
+	TSubclassOf<UUserWidget> GameOverWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TSubclassOf<UUserWidget> PauseWidgetClass;
 
 	virtual void BeginPlay() override;
 

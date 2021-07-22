@@ -7,5 +7,6 @@ enum class EGameState: uint8
 {
 	InPlay,
 	Pause,
-	GameOver
+	GameOver,
+	InMenu
 };

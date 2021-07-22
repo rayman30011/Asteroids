@@ -12,7 +12,10 @@ void AAsteroidsGameHUD::BeginPlay()
 
 	StateWidgets.Add(EGameState::InPlay, CreateWidget<UUserWidget>(GetWorld(), InPlayWidgetClass));
 	StateWidgets.Add(EGameState::GameOver, CreateWidget<UUserWidget>(GetWorld(), GameOverWidgetClass));
-	for (auto WidgetPair : StateWidgets)
+	StateWidgets.Add(EGameState::InMenu, CreateWidget<UUserWidget>(GetWorld(), InMenuWidgetClass));
+	StateWidgets.Add(EGameState::Pause, CreateWidget<UUserWidget>(GetWorld(), PauseWidgetClass));
+	
+	for (const auto WidgetPair : StateWidgets)
 	{
 		const auto Widget = WidgetPair.Value;
 		if (!Widget) continue;

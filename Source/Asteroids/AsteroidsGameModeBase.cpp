@@ -35,16 +35,7 @@ void AAsteroidsGameModeBase::PlayerDestroy(AController* PlayerController)
 void AAsteroidsGameModeBase::StartPlay()
 {
 	Super::StartPlay();
-	OnGameStateChanged.Broadcast(EGameState::InMenu);
-
-	if (DefaultSpaceship)
-	{
-		SetPlayerDefaults(DefaultSpaceship);
-	}
-	else
-	{
-		UE_LOG(LogAsteroidsGameMode, Error, TEXT("DefaultPawn is NULL"));
-	}
+	OnGameStateChanged.Broadcast(EGameState::InPlay);
 }
 
 void AAsteroidsGameModeBase::BeginPlay()

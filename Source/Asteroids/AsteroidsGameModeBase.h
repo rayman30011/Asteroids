@@ -26,9 +26,6 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnGameOverSignature OnGameOver;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	APawn* DefaultSpaceship;
-
 	EGameState GetGameState() const { return CurrentState; }
 	
 	void PlayerDestroy(AController* PlayerController);
